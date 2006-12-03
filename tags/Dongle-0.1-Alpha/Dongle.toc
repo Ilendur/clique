@@ -1,8 +1,0 @@
-## Interface: 20000
-## Title: Dongle
-## Author: Dongle Development Team
-## Notes: Minimal addon framework
-
-DongleStub.lua
-Dongle.lua
-DongleUtils.lua
