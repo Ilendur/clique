@@ -1,0 +1,257 @@
+------------------------------------------------------------------------
+r47 | tekkub | 2006-12-02 20:27:51 -0500 (Sat, 02 Dec 2006) | 1 line
+
+Dongle - Fixing "call from a registered dongle" errors with :Print
+------------------------------------------------------------------------
+r46 | tekkub | 2006-12-02 18:38:46 -0500 (Sat, 02 Dec 2006) | 1 line
+
+DongleUtils - Somehow I undid some of my earlier changes... I think I've got too many local copies here....
+------------------------------------------------------------------------
+r45 | tekkub | 2006-12-02 16:31:08 -0500 (Sat, 02 Dec 2006) | 1 line
+
+DongleUtils - Added MetrognomeNano... does the old onupdate stuff and can fire a one-time event into Dongle.  Don't try to make repeating events, use a time if you need something to fire more than once!
+------------------------------------------------------------------------
+r44 | tekkub | 2006-12-02 13:08:18 -0500 (Sat, 02 Dec 2006) | 1 line
+
+DongleUtils - Updated SetMantAttributes to clad's sexy version (I forgot we have select() now)
+------------------------------------------------------------------------
+r43 | jnwhiteh | 2006-12-02 12:55:43 -0500 (Sat, 02 Dec 2006) | 4 lines
+
+Dongle: 
+* Changed profile functions to print messages on major profile operations
+* Fixed ResetProfile() along with many other profile function
+
+------------------------------------------------------------------------
+r42 | jnwhiteh | 2006-12-02 12:04:30 -0500 (Sat, 02 Dec 2006) | 2 lines
+
+Dongle: Fixed a typo
+
+------------------------------------------------------------------------
+r41 | jnwhiteh | 2006-12-02 10:07:52 -0500 (Sat, 02 Dec 2006) | 2 lines
+
+Dongle: Quick fix for Indie's issue
+
+------------------------------------------------------------------------
+r40 | jnwhiteh | 2006-12-02 02:37:40 -0500 (Sat, 02 Dec 2006) | 2 lines
+
+Dongle: Misc fixes.  Loads Clique now.
+
+------------------------------------------------------------------------
+r39 | jnwhiteh | 2006-12-02 02:25:29 -0500 (Sat, 02 Dec 2006) | 2 lines
+
+Dongle: Rewrite of some of the core functionality.  Needs signifigant testing and expansion, which I should be able to get to tomorrow.
+
+------------------------------------------------------------------------
+r38 | tekkub | 2006-12-02 02:05:21 -0500 (Sat, 02 Dec 2006) | 1 line
+
+DongleUtils - Bugfix
+------------------------------------------------------------------------
+r37 | tekkub | 2006-12-01 08:20:17 -0500 (Fri, 01 Dec 2006) | 1 line
+
+DongleUtils - There Clad, now stop your whinin
+------------------------------------------------------------------------
+r36 | tekkub | 2006-12-01 00:34:10 -0500 (Fri, 01 Dec 2006) | 2 lines
+
+DongleUtils - Initial import.  This is a drycoded conglomeration of a few functions and my totally redone (and tiny) Gratuity.  I'm not adding it into the TOC until I've had time to get in-game and test it out.  Expect more handy functions to be added!
+
+------------------------------------------------------------------------
+r35 | jnwhiteh | 2006-11-29 23:22:05 -0500 (Wed, 29 Nov 2006) | 2 lines
+
+Dongle: Fixed typo
+
+------------------------------------------------------------------------
+r34 | jnwhiteh | 2006-11-28 22:36:04 -0500 (Tue, 28 Nov 2006) | 4 lines
+
+Dongle:
+* Change UnitTest system to properly set the environment
+* Any global variables that get set during a test are listed at the conclusion of the test.
+
+------------------------------------------------------------------------
+r33 | jnwhiteh | 2006-11-28 21:04:41 -0500 (Tue, 28 Nov 2006) | 2 lines
+
+Dongle: Cleaned up some tabs/spaces and used IsNewVersion() for DongleStub
+
+------------------------------------------------------------------------
+r32 | evlogimenos | 2006-11-28 21:04:01 -0500 (Tue, 28 Nov 2006) | 4 lines
+
+= Rename DongleStub:NewVersion to DongleStun:IsNewVersion
+= Reuse DongleStub:IsNewVersion inside DongleStub:Register
+
+
+------------------------------------------------------------------------
+r31 | jnwhiteh | 2006-11-28 19:05:18 -0500 (Tue, 28 Nov 2006) | 4 lines
+
+Dongle: 
+* Changed module() and require() to use "UnitTests"
+* Added an environment check, to ensure nothign gets added to the global env
+
+------------------------------------------------------------------------
+r30 | jnwhiteh | 2006-11-28 10:34:46 -0500 (Tue, 28 Nov 2006) | 3 lines
+
+Dongle: Updated DongleStub based on unit testing
+* Added UnitTests.lua and DongleStubUnitTests.lua for unit testing purposes
+
+------------------------------------------------------------------------
+r29 | jnwhiteh | 2006-11-28 10:31:50 -0500 (Tue, 28 Nov 2006) | 2 lines
+
+Dongle: Change eol-style
+
+------------------------------------------------------------------------
+r28 | tekkub | 2006-11-26 19:25:50 -0500 (Sun, 26 Nov 2006) | 1 line
+
+Dongle - Changed minor version to use string.find cause Clad's a picky bitch.  Also added failsafe minor version number 1 in case some genius doesn't checkout with an SVN client
+------------------------------------------------------------------------
+r27 | tekkub | 2006-11-26 19:18:08 -0500 (Sun, 26 Nov 2006) | 3 lines
+
+Dongle
+- Now uses svn:keyword Rev for the minor version number
+- Dongle:OnEvent is now FireEvent.  It can be used to create "custom" events from addons, MyAddon:FireEvent("MyAddon_SomeCustomEvent", "Blah")
+------------------------------------------------------------------------
+r26 | tekkub | 2006-11-26 17:55:21 -0500 (Sun, 26 Nov 2006) | 1 line
+
+Dongle - lern2local
+------------------------------------------------------------------------
+r25 | tekkub | 2006-11-26 12:50:56 -0500 (Sun, 26 Nov 2006) | 1 line
+
+Dongle - Tweaked reload slash command a tad
+------------------------------------------------------------------------
+r24 | jnwhiteh | 2006-11-25 09:36:47 -0500 (Sat, 25 Nov 2006) | 2 lines
+
+Dongle: Fixed event registration, Enable/Init should now work properly
+
+------------------------------------------------------------------------
+r23 | jnwhiteh | 2006-11-19 19:38:23 -0500 (Sun, 19 Nov 2006) | 11 lines
+
+Dongle:
+* Added UnregisterAllEvents()
+* Moved DongleStub registration code to the bottom of the file, for consistency
+* Changed logic in method replacement, replacement is now destructive
+* Changed event dispatch to be a simple iteration, pulled the extra logic out to other functions
+* Dongle:ADDON_LOADED() now handles event dispatch
+* Dongle:AdminEvents() handles the PLAYER_LOGIN/LOGOUT/etc. events
+* Added faction determination using UnitRace() when UnitFactionGroup() isn't available
+* We now register for our events using the Dongle system itself.
+* Call self:UnregisterAllEvents() when we deactivate an instance of Dongle
+
+------------------------------------------------------------------------
+r22 | jnwhiteh | 2006-11-19 14:39:38 -0500 (Sun, 19 Nov 2006) | 3 lines
+
+Dongle:
+* Some event handling fixes, event dispatch should work now, but needs to be cleaned up.
+
+------------------------------------------------------------------------
+r21 | jnwhiteh | 2006-11-19 14:17:33 -0500 (Sun, 19 Nov 2006) | 3 lines
+
+Dongle:
+* Changed initialization system so it queues all unloaded dongles, and initializes then on the next ADDON_LOADED.  This means load on demand addons should work just fine, but anything created after PLAYER_LOGIN (i.e. in TinyPad) won't fire until the next ADDON_LOADED.  In short, don't do it, or handle it yourself.
+
+------------------------------------------------------------------------
+r20 | jnwhiteh | 2006-11-19 13:05:51 -0500 (Sun, 19 Nov 2006) | 3 lines
+
+Dongle:
+* Removed all queued DB code.  I'm not sure what I was smoking when I wrote it.
+
+------------------------------------------------------------------------
+r19 | jnwhiteh | 2006-11-19 12:01:11 -0500 (Sun, 19 Nov 2006) | 2 lines
+
+Dongle: Changed :New() to proper usage string, optionally taking in a pre-existing object, and returning the addon object at the end.
+
+------------------------------------------------------------------------
+r18 | jnwhiteh | 2006-11-19 11:45:18 -0500 (Sun, 19 Nov 2006) | 2 lines
+
+Dongle: Completed fix for custom event registration
+
+------------------------------------------------------------------------
+r17 | jnwhiteh | 2006-11-17 18:45:58 -0500 (Fri, 17 Nov 2006) | 2 lines
+
+Dongle: Fixed an issue with Dongle:Debug(), it wasn't pulling the debugLevel properly
+
+------------------------------------------------------------------------
+r16 | jnwhiteh | 2006-11-16 22:28:43 -0500 (Thu, 16 Nov 2006) | 2 lines
+
+Dongle: Fixed event calling (thanks Tem)
+
+------------------------------------------------------------------------
+r15 | jnwhiteh | 2006-11-16 22:10:52 -0500 (Thu, 16 Nov 2006) | 4 lines
+
+Dongle:
+* Set the profilekey in db.char[char] when we init the database
+* Added a db.profiles which lets developers iterate ALL profiles
+
+------------------------------------------------------------------------
+r14 | jnwhiteh | 2006-11-16 19:45:44 -0500 (Thu, 16 Nov 2006) | 2 lines
+
+Dongle: Fix to :ResetDB() so it actually works now.
+
+------------------------------------------------------------------------
+r13 | jnwhiteh | 2006-11-16 18:41:06 -0500 (Thu, 16 Nov 2006) | 7 lines
+
+Dongle: 
+* Added code to :Activate() that puts Dongle in the list of valid modules, so it can Print and Debug from itself.
+* Added :Deactivate() that removes the registry[obj] = major entry
+* Fixed :Print() so it properly does a string.format() when necessary
+* Added a /dongle {enable|disable} AddonName which disables and enables addons from the commandline
+* Added a /reload which reloads the UI.
+
+------------------------------------------------------------------------
+r12 | jnwhiteh | 2006-11-16 18:02:03 -0500 (Thu, 16 Nov 2006) | 2 lines
+
+Dongle: Added DongleStub to the .toc, fixed license statement and added global registration
+
+------------------------------------------------------------------------
+r11 | jnwhiteh | 2006-11-16 17:43:20 -0500 (Thu, 16 Nov 2006) | 2 lines
+
+DongleStub: Tabify ftw!
+
+------------------------------------------------------------------------
+r10 | jnwhiteh | 2006-11-16 17:36:09 -0500 (Thu, 16 Nov 2006) | 2 lines
+
+Dongle: Initial conversion to use DongleStub
+
+------------------------------------------------------------------------
+r9 | jnwhiteh | 2006-11-16 17:35:41 -0500 (Thu, 16 Nov 2006) | 2 lines
+
+DongleStub: Initial commit
+
+------------------------------------------------------------------------
+r8 | jnwhiteh | 2006-11-16 17:21:31 -0500 (Thu, 16 Nov 2006) | 4 lines
+
+Dongle:
+* Fixed PLAYER_REGEN_{DISABLED/ENABLED}
+* Fixed OnEvents to use local arguments
+
+------------------------------------------------------------------------
+r7 | jnwhiteh | 2006-11-14 17:49:59 -0500 (Tue, 14 Nov 2006) | 2 lines
+
+Dongle: Added Dongle:New() which had been deleted
+
+------------------------------------------------------------------------
+r6 | jnwhiteh | 2006-11-14 17:31:32 -0500 (Tue, 14 Nov 2006) | 2 lines
+
+Dongle: Added Dongle.toc so this can load as an addon
+
+------------------------------------------------------------------------
+r5 | jnwhiteh | 2006-11-13 20:25:01 -0500 (Mon, 13 Nov 2006) | 2 lines
+
+Dongle: Removed all stub code.. I hate it.
+
+------------------------------------------------------------------------
+r4 | jnwhiteh | 2006-11-13 19:59:31 -0500 (Mon, 13 Nov 2006) | 2 lines
+
+Dongle: Added New-BSD license.
+
+------------------------------------------------------------------------
+r3 | jnwhiteh | 2006-11-13 19:52:49 -0500 (Mon, 13 Nov 2006) | 2 lines
+
+Dongle: Added db.global (which just points to sv.global)
+
+------------------------------------------------------------------------
+r2 | jnwhiteh | 2006-11-13 19:44:53 -0500 (Mon, 13 Nov 2006) | 2 lines
+
+Dongle: Initial import
+
+------------------------------------------------------------------------
+r1 | (no author) | 2006-11-13 19:26:30 -0500 (Mon, 13 Nov 2006) | 1 line
+
+Initial directory structure.
+------------------------------------------------------------------------
