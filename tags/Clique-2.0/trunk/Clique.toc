@@ -1,0 +1,17 @@
+## Interface: 20000
+## Title: Clique
+## Author: Cladhaire
+## Notes: Simply powerful click-casting interface
+## SavedVariables: CliqueDB
+## OptionalDeps: Dongle
+
+Dongle.lua
+Clique.lua
+Clique.xml
+Localization.en.lua
+Localization.fr.lua
+Localization.de.lua
+Localization.zh.lua
+Localization.kr.lua
+CliqueOptions.lua
+CliqueUtils.lua
