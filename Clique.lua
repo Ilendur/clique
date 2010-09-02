@@ -154,11 +154,11 @@ function Clique:EnableFrames()
 end	   
 
 function Clique:SpellBookButtonPressed(frame, button)
-    local id = SpellBook_GetSpellID(this:GetParent():GetID());
-    local texture = GetSpellTexture(id, SpellBookFrame.bookType)
-    local name, rank = GetSpellName(id, SpellBookFrame.bookType)
+    local slot = SpellBook_GetSpellBookSlot(frame:GetParent());
+    local name, subtype = GetSpellBookItemName(slot, SpellBookFrame.bookType)
+    local texture = GetSpellBookItemTexture(slot, SpellBookFrame.bookType)
 
-    if rank == L.RACIAL_PASSIVE or rank == L.PASSIVE then
+    if subtype == L.RACIAL_PASSIVE or subtype == L.PASSIVE then
 		StaticPopup_Show("CLIQUE_PASSIVE_SKILL")
 		return
     end
@@ -173,19 +173,13 @@ function Clique:SpellBookButtonPressed(frame, button)
 		button = self:GetButtonNumber(button)
 	end
    
-	-- Clear the rank if "Show all spell ranks" is selected
-	if not GetCVarBool("ShowAllSpellRanks") then
-		rank = nil
-	end
-
     -- Build the structure
     local t = {
 		["button"] = button,
 		["modifier"] = self:GetModifierText(),
-		["texture"] = GetSpellTexture(id, SpellBookFrame.bookType),
-		["type"] = type,
+		["texture"] = texture,
+        ["type"] = type,
 		["arg1"] = name,
-		["arg2"] = rank,
     }
     
     local key = t.modifier .. t.button
