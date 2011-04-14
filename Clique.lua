@@ -69,9 +69,21 @@ function addon:Initialize()
 
     self.header:SetAttribute("_onattributechanged", [[
         if name == "hasunit" then
-            if value == "false" and danglingButton then
+            if danglingButton and value == "false" then
+                -- if we have a current button and we've lost the 'mouseover' unit
+                -- run the 'onleave' script for that button that is dangling.
                 self:RunFor(danglingButton, self:GetAttribute("setup_onleave"))
                 danglingButton = nil
+            elseif not danglingButton and value == "true" then
+                -- scan the registered frames to see if we are over one of them
+                for frame in pairs(ccframes) do
+                    if frame:IsUnderMouse(true) and frame:IsVisible() then
+                        -- run the 'onenter' script for this button
+                        self:RunFor(frame, self:GetAttribute("setup_onenter"))
+                        danglingButton = frame
+                        return
+                    end
+                end
             end
         end
     ]])
