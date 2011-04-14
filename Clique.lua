@@ -56,6 +56,17 @@ function addon:Initialize()
     self.header = CreateFrame("Frame", addonName .. "HeaderFrame", UIParent, "SecureHandlerBaseTemplate,SecureHandlerAttributeTemplate")
     ClickCastHeader = addon.header
 
+    -- Create a table within the addon header to store the frames
+    -- that are registered for click-casting
+    self.header:Execute([[
+        ccframes = table.new()
+    ]])
+
+    -- Create a table within the addon header to store the frame bakcklist
+    self.header:Execute([[
+        blacklist = table.new()
+    ]])
+
     self.header:SetAttribute("_onattributechanged", [[
         if name == "hasunit" then
             if value == "false" and danglingButton then
@@ -68,17 +79,6 @@ function addon:Initialize()
 
     -- Create a secure action button that can be used for 'hovercast' and 'global'
     self.globutton = CreateFrame("Button", addonName .. "SABButton", UIParent, "SecureActionButtonTemplate, SecureHandlerBaseTemplate")
-
-    -- Create a table within the addon header to store the frames
-    -- that are registered for click-casting
-    self.header:Execute([[
-        ccframes = table.new()
-    ]])
-
-    -- Create a table within the addon header to store the frame bakcklist
-    self.header:Execute([[
-        blacklist = table.new()
-    ]])
 
     -- This snippet is executed from the SecureHandlerEnterLeaveTemplate
     -- _onenter and _onleave attributes. The 'self' attribute will contain
