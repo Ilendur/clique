@@ -1,5 +1,5 @@
 --[[-------------------------------------------------------------------
---  Clique - Copyright 2006-2010 - James N. Whitehead II
+--  Clique - Copyright 2006-2012 - James N. Whitehead II
 --
 --  This is an updated version of the original 'Clique' addon
 --  designed to work better with multi-button mice, and those players
