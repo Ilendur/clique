@@ -500,8 +500,14 @@ function addon:GetClickAttributes(global)
                 bits[#bits + 1] = ATTR(indent, prefix, "type", suffix, entry.type)
                 rembits[#rembits + 1] = REMATTR(prefix, "type", suffix)
 			elseif entry.type == "spell" and self.settings.stopcastingfix then
-				-- Implementation of the 'stop casting' fix
-				local macrotext = string.format("/click %s\n/cast [@mouseover] %s", self.stopbutton.name, entry.spell)
+				-- Implement the 'stop casting'f ix
+				local macrotext
+				if entry.sets.global then
+					-- Do not include @mouseover
+					macrotext = string.format("/click %s\n/cast %s", self.stopbutton.name, entry.spell)
+				else
+					macrotext = string.format("/click %s\n/cast [@mouseover] %s", self.stopbutton.name, entry.spell)
+				end
                 bits[#bits + 1] = ATTR(indent, prefix, "type", suffix, "macro")
                 bits[#bits + 1] = ATTR(indent, prefix, "macrotext", suffix, macrotext)
                 rembits[#rembits + 1] = REMATTR(prefix, "type", suffix)
