@@ -354,6 +354,20 @@ local function correctSpec(entry, currentSpec)
 	return true
 end
 
+local function getEntryString(entry)
+	local bits = {}
+	bits[#bits+1] = "type"
+	bits[#bits+1] = tostring(entry.type)
+
+	if entry.type == "spell" then
+		bits[#bits+1] = tostring(entry.spell)
+	elseif entry.type == "macro" and entry.macrotext then
+		bits[#bits+1] = tostring(entry.macrotext)
+	end
+
+	return table.concat(bits, ":")
+end
+
 -- This function takes a single argument indicating if the attributes being
 -- computed are for the special 'global' button used by Clique.  It then
 -- computes the set of attributes necessary for the player's bindings to be
@@ -579,7 +593,7 @@ function addon:GetBindingAttributes(global)
 
     for idx, entry in ipairs(self.bindings) do
 		if entry.key then
-			if shouldApply(global, entry) then
+			if shouldApply(global, entry) and correctSpec(entry, GetActiveSpecGroup()) then
 				if global then
 					-- Allow for the re-binding of clicks and keys, except for
 					-- unmodified left/right-click
