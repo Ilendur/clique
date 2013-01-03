@@ -283,7 +283,7 @@ function addon:OnNewProfile(event, db, profile)
     })
     table.insert(db.profile.bindings, {
         key = "BUTTON2",
-        type = "menu",
+        type = "togglemenu",
         sets = {
             default = true
         },
