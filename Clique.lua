@@ -910,6 +910,13 @@ function addon:IsFrameBlacklisted(frame)
     if type(frame) == "table" then
         name = frame.GetName and frame:GetName()
     end
+
+    -- Not sure how to make this work with buttons that don't have
+    -- the RegisterForClicks method, so always blacklist those
+    if not button.RegisterForClicks then
+        return true
+    end
+
     return self.settings.blacklist[name]
 end
 
