@@ -792,13 +792,11 @@ function addon:TalentGroupChanged()
     local currentProfile = self.db:GetCurrentProfile()
     local newProfile
 
-	if self.settings.specswap then
-		self.talentGroup = GetActiveSpecGroup()
-        -- Determine which profile to set, based on talent group
-        if self.talentGroup == 1 and self.settings.pri_profileKey then
-            newProfile = self.settings.pri_profileKey
-        elseif self.talentGroup == 2 and self.settings.sec_profileKey then
-            newProfile = self.settings.sec_profileKey
+    local currentSpec = GetSpecialization()
+	if self.settings.specswap and currentSpec then
+        local settingsKey = string.format("spec%d_profileKey", currentSpec)
+        if self.settings[settingsKey] then
+            newProfile = self.settings[settingsKey]
         end
 
         if newProfile ~= currentProfile and type(newProfile) == "string" then
