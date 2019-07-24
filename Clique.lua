@@ -41,6 +41,9 @@ local addonName, addon = ...
 local L = addon.L
 
 function addon:Initialize()
+    -- Are we running on release or classic?
+    self.compatRelease = not not GetSpecialization
+
     -- Create an AceDB, but it needs to be cleared first
     self.db = LibStub("AceDB-3.0"):New("CliqueDB3", self.defaults)
     self.db.RegisterCallback(self, "OnNewProfile", "OnNewProfile")
@@ -201,7 +204,11 @@ function addon:Initialize()
     -- Register for combat events to ensure we can swap between the two states
     self:RegisterEvent("PLAYER_REGEN_DISABLED", "EnteringCombat")
     self:RegisterEvent("PLAYER_REGEN_ENABLED", "LeavingCombat")
-    self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "TalentGroupChanged")
+
+    if self.compatRelease then
+        self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "TalentGroupChanged")
+    end
+
     self:RegisterEvent("PLAYER_ENTERING_WORLD", "PlayerEnteringWorld")
 
     -- Register for Clique-based messages for settings updates, etc.
@@ -212,7 +219,9 @@ function addon:Initialize()
     addon:UpdateCombatWatch()
 
     -- Trigger a 'TalentGroupChanged' so we end up on the right profile
-    addon:TalentGroupChanged()
+    if self.compatRelease then
+        addon:TalentGroupChanged()
+    end
 
     self:FireMessage("BLACKLIST_CHANGED")
     self:FireMessage("BINDINGS_CHANGED")
@@ -355,6 +364,10 @@ local function shouldApply(global, entry)
 end
 
 local function correctSpec(entry)
+    if not compatRelease then
+        return true
+    end
+
     -- Check to ensure we're on the right spec for this binding
     local currentSpec = GetSpecialization()
     if currentSpec and entry.sets["spec" .. tostring(currentSpec)] then

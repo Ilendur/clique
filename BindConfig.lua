@@ -47,12 +47,20 @@ function CliqueConfig:OnHide()
     self:UpdateAlert()
 end
 
-function CliqueConfig:SetupGUI()
-    self.talents = {}
-    for i = 1, GetNumSpecializations() do
-        local id, name = GetSpecializationInfo(i)
-        self.talents[i] = name
+-- compat:classic
+function CliqueConfig:SetupTalents()
+    if not GetNumSpecializations then
+        self.talents = {L["Default"]}
+    else
+        for i = 1, GetNumSpecializations() do
+            local id, name = GetSpecializationInfo(i)
+            self.talents[i] = name
+        end
     end
+end
+
+function CliqueConfig:SetupGUI()
+    self:SetupTalents()
 
     self.rows = {}
     for i = 1, MAX_ROWS do
