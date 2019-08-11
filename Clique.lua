@@ -385,20 +385,6 @@ local function correctSpec(entry)
     return true
 end
 
-local function getEntryString(entry)
-	local bits = {}
-	bits[#bits+1] = "type"
-	bits[#bits+1] = tostring(entry.type)
-
-	if entry.type == "spell" then
-		bits[#bits+1] = tostring(entry.spell)
-	elseif entry.type == "macro" and entry.macrotext then
-		bits[#bits+1] = tostring(entry.macrotext)
-	end
-
-	return table.concat(bits, ":")
-end
-
 -- This function takes a single argument indicating if the attributes being
 -- computed are for the special 'global' button used by Clique.  It then
 -- computes the set of attributes necessary for the player's bindings to be
@@ -408,13 +394,13 @@ end
 function addon:GetClickAttributes(global)
     -- In these scripts, 'self' should always be the header
     local bits = {
-		"local inCombat = control:GetAttribute('inCombat')",
+        "local inCombat = control:GetAttribute('inCombat')",
         "local setupbutton = self:GetFrameRef('cliquesetup_button')",
         "local button = setupbutton or self",
     }
 
     local rembits = {
-		"local inCombat = control:GetAttribute('inCombat')",
+        "local inCombat = control:GetAttribute('inCombat')",
         "local setupbutton = self:GetFrameRef('cliquesetup_button')",
         "local button = setupbutton or self",
     }
@@ -430,7 +416,7 @@ function addon:GetClickAttributes(global)
     end
 
     -- Sort the bindings so they are applied in order. This sort ensures that
-	-- any 'ooc' bindings are applied first.
+    -- any 'ooc' bindings are applied first.
     table.sort(self.bindings, ApplicationOrder)
 
     -- Build a small table of ooc keys that are 'taken' so we can check for
@@ -458,24 +444,24 @@ function addon:GetClickAttributes(global)
             local indent = ""
             local oocmask = oocKeys[entry.key]
 
-			-- This code needs to set/clear a binding depending on combat
-			-- state. We do both in this function to ensure that we don't have
-			-- to run remove_clicks every single time the combat status
-			-- changes.
+            -- This code needs to set/clear a binding depending on combat
+            -- state. We do both in this function to ensure that we don't have
+            -- to run remove_clicks every single time the combat status
+            -- changes.
 
-			local startbits
+            local startbits
             if oocmask and not entry.sets.ooc then
-				-- This means that the binding will mask the 'ooc' binding
-				-- with the same key, so we must ensure this is only set when
-				-- we are in combat.
+                -- This means that the binding will mask the 'ooc' binding
+                -- with the same key, so we must ensure this is only set when
+                -- we are in combat.
                 bits[#bits + 1] = "if inCombat then      -- non-ooc that is masking"
                 indent = indent .. "  "
-			elseif entry.sets.ooc then
-				-- This is a standard 'ooc' binding, so we want to ensure its
-				-- only applied when out of combat, and cleared otherwise.
-				bits[#bits + 1] = "if not inCombat then  -- ooc binding"
-				indent = indent .. "  "
-				startbits = #rembits + 1
+            elseif entry.sets.ooc then
+                -- This is a standard 'ooc' binding, so we want to ensure its
+                -- only applied when out of combat, and cleared otherwise.
+                bits[#bits + 1] = "if not inCombat then  -- ooc binding"
+                indent = indent .. "  "
+                startbits = #rembits + 1
             end
 
             local prefix, suffix = addon:GetBindingPrefixSuffix(entry, global)
@@ -534,26 +520,28 @@ function addon:GetClickAttributes(global)
                 set_text = ATTR(indent, prefix, "type", suffix, "togglemenu")
                 bits[#bits + 1] = string.gsub(set_text, '"togglemenu"', 'button:GetAttribute("*type2") == "menu" and "menu" or "togglemenu"')
                 rembits[#rembits + 1] = REMATTR(prefix, "type", suffix)
-			elseif entry.type == "spell" and self.settings.stopcastingfix then
-				-- Implement the 'stop casting'f ix
-				local macrotext
-				if entry.sets.global then
-					-- Do not include @mouseover
-					macrotext = string.format("/click %s\n/cast %s", self.stopbutton.name, entry.spell)
-				else
-					macrotext = string.format("/click %s\n/cast [@mouseover] %s", self.stopbutton.name, entry.spell)
-				end
+            elseif entry.type == "spell" and self.settings.stopcastingfix then
+                -- Implement the 'stop casting' fix
+                local macrotext
+                local spellText = addon:SpellTextWithSubName(entry)
+                if entry.sets.global then
+                    -- Do not include @mouseover
+                    macrotext = string.format("/click %s\n/cast %s", self.stopbutton.name, spellText)
+                else
+                    macrotext = string.format("/click %s\n/cast [@mouseover] %s", self.stopbutton.name, entry.spell)
+                end
                 bits[#bits + 1] = ATTR(indent, prefix, "type", suffix, "macro")
                 bits[#bits + 1] = ATTR(indent, prefix, "macrotext", suffix, macrotext)
                 rembits[#rembits + 1] = REMATTR(prefix, "type", suffix)
                 rembits[#rembits + 1] = REMATTR(prefix, "macrotext", suffix)
-           elseif entry.type == "spell" then
+            elseif entry.type == "spell" then
+                local spellText = addon:SpellTextWithSubName(entry)
                 bits[#bits + 1] = ATTR(indent, prefix, "type", suffix, entry.type)
-                bits[#bits + 1] = ATTR(indent, prefix, "spell", suffix, entry.spell)
+                bits[#bits + 1] = ATTR(indent, prefix, "spell", suffix, spellText)
                 rembits[#rembits + 1] = REMATTR(prefix, "type", suffix)
                 rembits[#rembits + 1] = REMATTR(prefix, "spell", suffix)
-			elseif entry.type == "macro" and self.settings.stopcastingfix then
-				local macrotext = string.format("/click %s\n%s", self.stopbutton.name, entry.macrotext)
+            elseif entry.type == "macro" and self.settings.stopcastingfix then
+                local macrotext = string.format("/click %s\n%s", self.stopbutton.name, entry.macrotext)
                 bits[#bits + 1] = ATTR(indent, prefix, "type", suffix, entry.type)
                 bits[#bits + 1] = ATTR(indent, prefix, "macrotext", suffix, macrotext)
                 rembits[#rembits + 1] = REMATTR(prefix, "type", suffix)
@@ -569,21 +557,21 @@ function addon:GetClickAttributes(global)
 
             -- Finish the conditional statements started above
             if oocmask and not entry.sets.ooc then
-				-- This means that the binding will mask the 'ooc' binding
-				-- with the same key, so we must ensure this is only set when
-				-- we are in combat.
-				bits[#bits + 1] = "end"
+                -- This means that the binding will mask the 'ooc' binding
+                -- with the same key, so we must ensure this is only set when
+                -- we are in combat.
+                bits[#bits + 1] = "end"
                 indent = indent:sub(1, -3)
-			elseif entry.sets.ooc then
-				-- This is a standard 'ooc' binding, so we want to ensure its
-				-- only applied when out of combat, and cleared otherwise.
-				local endbits = #rembits
-				bits[#bits + 1] = "else                  -- clear ooc binding"
-				for i = startbits, endbits, 1 do
-					bits[#bits + 1] = indent .. rembits[i]
-				end
-				bits[#bits + 1] = "end"
-				indent = indent:sub(1, -3)
+            elseif entry.sets.ooc then
+                -- This is a standard 'ooc' binding, so we want to ensure its
+                -- only applied when out of combat, and cleared otherwise.
+                local endbits = #rembits
+                bits[#bits + 1] = "else                  -- clear ooc binding"
+                for i = startbits, endbits, 1 do
+                    bits[#bits + 1] = indent .. rembits[i]
+                end
+                bits[#bits + 1] = "end"
+                indent = indent:sub(1, -3)
             end
         end
     end
@@ -724,7 +712,7 @@ local function bindingeq(a, b)
     elseif a.type == "menu" then
         return a.key == b.key
     elseif a.type == "spell" then
-        return a.spell == b.spell and a.key == b.key
+        return a.spell == b.spell and a.key == b.key and a.spellSubName == b.spellSubName
     elseif a.type == "macro" then
         return a.macrotext == b.macrotext and a.key == b.key
     end
