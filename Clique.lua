@@ -41,8 +41,8 @@ local addonName, addon = ...
 local L = addon.L
 
 function addon:Initialize()
-    -- Are we running on release or classic?
-    self.compatRelease = not not GetSpecialization
+    -- Are we running on release rather than classic?
+    self.compatRelease = WOW_PROJECT_ID == WOW_PROJECT_MAINLINE
 
     -- Create an AceDB, but it needs to be cleared first
     self.db = LibStub("AceDB-3.0"):New("CliqueDB3", self.defaults)
