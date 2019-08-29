@@ -88,19 +88,18 @@ function panel:CreateOptions()
             UIDropDownMenu_SetWidth(self.talentProfiles[i], 200)
             BlizzardOptionsPanel_SetupDependentControl(self.specswap, self.talentProfiles[i])
         end
+    else
+        for i = 1, 1 do
+            local _, specName = "Default"
+            local name = "CliqueOptionsSpec" .. i
+            local label = make_label(name .. "Label", self, "GameFontNormalSmall")
+            label:SetText(L["Talent profile: %s"]:format("Default"))
+            self.talentProfiles[i] = make_dropdown(name, self)
+            self.talentProfiles[i].profileLabel = label
+            UIDropDownMenu_SetWidth(self.talentProfiles[i], 200)
+            BlizzardOptionsPanel_SetupDependentControl(self.specswap, self.talentProfiles[i])
+        end
     end
-
-	for i = 1, 1 do
-        local _, specName = "Default"
-        local name = "CliqueOptionsSpec" .. i
-        local label = make_label(name .. "Label", self, "GameFontNormalSmall")
-        label:SetText(L["Talent profile: %s"]:format("Default"))
-        self.talentProfiles[i] = make_dropdown(name, self)
-        self.talentProfiles[i].profileLabel = label
-        UIDropDownMenu_SetWidth(self.talentProfiles[i], 200)
-        BlizzardOptionsPanel_SetupDependentControl(self.specswap, self.talentProfiles[i])
-    end
-
 
     self.profilelabel = make_label("CliqueOptionsProfileMgmtLabel", self, "GameFontNormalSmall")
     self.profilelabel:SetText(L["Profile Management:"])

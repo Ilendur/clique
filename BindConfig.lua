@@ -47,16 +47,15 @@ function CliqueConfig:OnHide()
     self:UpdateAlert()
 end
 
--- compat:classic
 function CliqueConfig:SetupTalents()
-    if not GetNumSpecializations then
-        self.talents = {L["Default"]}
-    else
+    if addon.compatRelease then
         self.talents = {}
         for i = 1, GetNumSpecializations() do
             local id, name = GetSpecializationInfo(i)
             self.talents[i] = name
         end
+    else
+        self.talents = {L["Default"]}
     end
 end
 
