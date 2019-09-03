@@ -204,11 +204,6 @@ function addon:Initialize()
     -- Register for combat events to ensure we can swap between the two states
     self:RegisterEvent("PLAYER_REGEN_DISABLED", "EnteringCombat")
     self:RegisterEvent("PLAYER_REGEN_ENABLED", "LeavingCombat")
-
-    if self.compatRelease then
-        self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "TalentGroupChanged")
-    end
-
     self:RegisterEvent("PLAYER_ENTERING_WORLD", "PlayerEnteringWorld")
 
     -- Register for Clique-based messages for settings updates, etc.
@@ -218,9 +213,10 @@ function addon:Initialize()
     -- Handle combat watching so we can change ooc based on party combat status
     addon:UpdateCombatWatch()
 
-    -- Trigger a 'TalentGroupChanged' so we end up on the right profile
+    -- Handle talent specs for release
     if self.compatRelease then
-        addon:TalentGroupChanged()
+        self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED", "TalentGroupChanged")
+        self:TalentGroupChanged()
     end
 
     self:FireMessage("BLACKLIST_CHANGED")
@@ -364,7 +360,7 @@ local function shouldApply(global, entry)
 end
 
 local function correctSpec(entry)
-    if not compatRelease then
+    if not addon.compatRelease then
         return true
     end
 
