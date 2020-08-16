@@ -454,7 +454,7 @@
                     </Button>
 
                     <!-- Wrap the scroll frame in a frame that can capture clicks -->
-                    <Button name="CliqueClickGrabber" parentKey="clickGrabber">
+                    <Button name="CliqueClickGrabber" parentKey="clickGrabber" inherits="BackdropTemplate">
                         <Size x="320" y="160"/>
                         <Anchors>
                             <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT">
