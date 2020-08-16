@@ -329,7 +329,7 @@
                             </Anchors>
                         </ButtonText>
                     </Button>
-                    <Slider name="$parent_VSlider" parentKey="slider" valueStep="1.0" hidden="true" orientation="VERTICAL">
+                    <Slider name="$parent_VSlider" parentKey="slider" valueStep="1.0" hidden="true" orientation="VERTICAL" inherits="BackdropTemplate">
                         <Size x="18" y="0"/>
                         <Anchors>
                             <Anchor point="TOPRIGHT" x="0" y="-20"/>
