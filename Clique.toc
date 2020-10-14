@@ -1,4 +1,4 @@
-## Interface: 900001
+## Interface: 90001
 ## Title: Clique
 ## Author: Cladhaire
 ## Version: @project-version@
